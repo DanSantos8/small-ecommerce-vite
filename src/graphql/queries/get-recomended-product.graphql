@@ -1,0 +1,11 @@
+query GetRecomendedProduct {
+  categories(where: { categoryId: "03" }) {
+    title
+    slug
+    products {
+      title
+      price
+      image
+    }
+  }
+}

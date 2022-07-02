@@ -1,9 +1,26 @@
-import { useQuery } from "@apollo/client"
-import { GET_RECOMENDED_ITEM } from "../../graphql/categories"
+import classNames from "classnames"
+import { useGetRecomendedProductQuery } from "../../graphql/generated"
+
+import { Text } from "../Text"
 export function Recomendation() {
-  const { data } = useQuery(GET_RECOMENDED_ITEM)
-  console.log(data)
+  const { data } = useGetRecomendedProductQuery()
+
+  if (!data) return <div>Loading...</div>
+
   return (
-    <div className="flex flex-1 justify-center min-h-[360px] bg-gray-900"></div>
+    <>
+      {data?.categories.map((category) =>
+        category.products.map((product) => (
+          <div
+            className={classNames(
+              `flex flex-1 flex-col gap-3 justify-center items-center min-h-[360px] bg-[url("${product.image}")] bg-cover bg-center`
+            )}
+          >
+            <Text label={product.title} classes={["text-4xl"]} />
+            <Text label="R$ 299,9" classes={["text-2xl"]} />
+          </div>
+        ))
+      )}
+    </>
   )
 }
