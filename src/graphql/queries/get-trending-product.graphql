@@ -1,0 +1,13 @@
+query GetTrendingProduct {
+  category(where: { slug: "03/trending" }) {
+    title
+    slug
+    products {
+      title
+      price
+      image
+      productId
+      slug
+    }
+  }
+}

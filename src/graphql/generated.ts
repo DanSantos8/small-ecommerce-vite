@@ -4298,10 +4298,10 @@ export type GetAllCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', slug: string, title: string, categoryId: string }> };
 
-export type GetRecomendedProductQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetTrendingProductQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetRecomendedProductQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', title: string, slug: string, products: Array<{ __typename?: 'Product', title: string, price: number, image: string }> }> };
+export type GetTrendingProductQuery = { __typename?: 'Query', category?: { __typename?: 'Category', title: string, slug: string, products: Array<{ __typename?: 'Product', title: string, price: number, image: string, productId: number, slug: string }> } | null };
 
 
 export const GetAllCategoriesDocument = gql`
@@ -4340,43 +4340,45 @@ export function useGetAllCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetAllCategoriesQueryHookResult = ReturnType<typeof useGetAllCategoriesQuery>;
 export type GetAllCategoriesLazyQueryHookResult = ReturnType<typeof useGetAllCategoriesLazyQuery>;
 export type GetAllCategoriesQueryResult = Apollo.QueryResult<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>;
-export const GetRecomendedProductDocument = gql`
-    query GetRecomendedProduct {
-  categories(where: {categoryId: "03"}) {
+export const GetTrendingProductDocument = gql`
+    query GetTrendingProduct {
+  category(where: {slug: "03/trending"}) {
     title
     slug
     products {
       title
       price
       image
+      productId
+      slug
     }
   }
 }
     `;
 
 /**
- * __useGetRecomendedProductQuery__
+ * __useGetTrendingProductQuery__
  *
- * To run a query within a React component, call `useGetRecomendedProductQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetRecomendedProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetTrendingProductQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetTrendingProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetRecomendedProductQuery({
+ * const { data, loading, error } = useGetTrendingProductQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetRecomendedProductQuery(baseOptions?: Apollo.QueryHookOptions<GetRecomendedProductQuery, GetRecomendedProductQueryVariables>) {
+export function useGetTrendingProductQuery(baseOptions?: Apollo.QueryHookOptions<GetTrendingProductQuery, GetTrendingProductQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetRecomendedProductQuery, GetRecomendedProductQueryVariables>(GetRecomendedProductDocument, options);
+        return Apollo.useQuery<GetTrendingProductQuery, GetTrendingProductQueryVariables>(GetTrendingProductDocument, options);
       }
-export function useGetRecomendedProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetRecomendedProductQuery, GetRecomendedProductQueryVariables>) {
+export function useGetTrendingProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetTrendingProductQuery, GetTrendingProductQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetRecomendedProductQuery, GetRecomendedProductQueryVariables>(GetRecomendedProductDocument, options);
+          return Apollo.useLazyQuery<GetTrendingProductQuery, GetTrendingProductQueryVariables>(GetTrendingProductDocument, options);
         }
-export type GetRecomendedProductQueryHookResult = ReturnType<typeof useGetRecomendedProductQuery>;
-export type GetRecomendedProductLazyQueryHookResult = ReturnType<typeof useGetRecomendedProductLazyQuery>;
-export type GetRecomendedProductQueryResult = Apollo.QueryResult<GetRecomendedProductQuery, GetRecomendedProductQueryVariables>;
+export type GetTrendingProductQueryHookResult = ReturnType<typeof useGetTrendingProductQuery>;
+export type GetTrendingProductLazyQueryHookResult = ReturnType<typeof useGetTrendingProductLazyQuery>;
+export type GetTrendingProductQueryResult = Apollo.QueryResult<GetTrendingProductQuery, GetTrendingProductQueryVariables>;

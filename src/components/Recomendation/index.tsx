@@ -1,26 +1,30 @@
 import classNames from "classnames"
-import { useGetRecomendedProductQuery } from "../../graphql/generated"
-
+import { useGetTrendingProductQuery } from "../../graphql/generated"
+import { normalizeCurrency } from "../../utils/functions"
 import { Text } from "../Text"
+import { BtnAddProductCart } from "../Button"
 export function Recomendation() {
-  const { data } = useGetRecomendedProductQuery()
+  const { data } = useGetTrendingProductQuery()
 
   if (!data) return <div>Loading...</div>
 
   return (
     <>
-      {data?.categories.map((category) =>
-        category.products.map((product) => (
-          <div
-            className={classNames(
-              `flex flex-1 flex-col gap-3 justify-center items-center min-h-[360px] bg-[url("${product.image}")] bg-cover bg-center`
-            )}
-          >
-            <Text label={product.title} classes={["text-4xl"]} />
-            <Text label="R$ 299,9" classes={["text-2xl"]} />
-          </div>
-        ))
-      )}
+      {data.category?.products.map((product) => (
+        <div
+          key={product.productId}
+          className={classNames(
+            `flex flex-1 flex-col gap-3 justify-center items-center min-h-[360px] bg-cover bg-center`
+          )}
+          style={{
+            backgroundImage: `url('${product.image}')`,
+          }}
+        >
+          <Text label={product.title} classes="text-4xl" />
+          <Text label={normalizeCurrency(product.price)} classes="text-2xl" />
+          <BtnAddProductCart productId={product.productId} />
+        </div>
+      ))}
     </>
   )
 }
