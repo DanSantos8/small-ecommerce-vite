@@ -1,7 +1,0 @@
-query GetAllCategories {
-  categories {
-    slug
-    title
-    categoryId
-  }
-}

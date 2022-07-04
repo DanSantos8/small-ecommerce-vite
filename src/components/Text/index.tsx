@@ -3,13 +3,16 @@ import classNames from "classnames"
 interface ITextProps {
   label: string
   classes?: string
+  as?: string
 }
 
 export function Text(props: ITextProps) {
-  const { label, classes = [] } = props
+  const { label, classes = [], as } = props
+  const Tag: any = as || "span"
+
   return (
-    <span className={classNames("text-white text-base font-semibold", classes)}>
+    <Tag className={classNames("text-base font-semibold", classes)}>
       {label}
-    </span>
+    </Tag>
   )
 }

@@ -1,5 +1,6 @@
 import { Header } from "./components/Header"
 import { Recomendation } from "./components/Recomendation"
+import { Categories } from "./components/Section"
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
           <Header />
           <main>
             <Recomendation />
+            <Categories />
           </main>
         </div>
       </div>

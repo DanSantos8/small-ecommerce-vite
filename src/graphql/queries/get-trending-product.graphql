@@ -1,5 +1,5 @@
 query GetTrendingProduct {
-  category(where: { slug: "03/trending" }) {
+  category(where: { slug: "trending" }) {
     title
     slug
     products {

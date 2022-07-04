@@ -4293,10 +4293,10 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
-export type GetAllCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetProductsCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', slug: string, title: string, categoryId: string }> };
+export type GetProductsCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', categoryId: string, title: string, products: Array<{ __typename?: 'Product', productId: number, title: string, price: number, image: string }> }> };
 
 export type GetTrendingProductQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4304,45 +4304,50 @@ export type GetTrendingProductQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTrendingProductQuery = { __typename?: 'Query', category?: { __typename?: 'Category', title: string, slug: string, products: Array<{ __typename?: 'Product', title: string, price: number, image: string, productId: number, slug: string }> } | null };
 
 
-export const GetAllCategoriesDocument = gql`
-    query GetAllCategories {
-  categories {
-    slug
-    title
+export const GetProductsCategoriesDocument = gql`
+    query getProductsCategories {
+  categories(where: {NOT: {slug: "trending"}}) {
     categoryId
+    title
+    products {
+      productId
+      title
+      price
+      image
+    }
   }
 }
     `;
 
 /**
- * __useGetAllCategoriesQuery__
+ * __useGetProductsCategoriesQuery__
  *
- * To run a query within a React component, call `useGetAllCategoriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetAllCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetProductsCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductsCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetAllCategoriesQuery({
+ * const { data, loading, error } = useGetProductsCategoriesQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGetAllCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>) {
+export function useGetProductsCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<GetProductsCategoriesQuery, GetProductsCategoriesQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>(GetAllCategoriesDocument, options);
+        return Apollo.useQuery<GetProductsCategoriesQuery, GetProductsCategoriesQueryVariables>(GetProductsCategoriesDocument, options);
       }
-export function useGetAllCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>) {
+export function useGetProductsCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductsCategoriesQuery, GetProductsCategoriesQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>(GetAllCategoriesDocument, options);
+          return Apollo.useLazyQuery<GetProductsCategoriesQuery, GetProductsCategoriesQueryVariables>(GetProductsCategoriesDocument, options);
         }
-export type GetAllCategoriesQueryHookResult = ReturnType<typeof useGetAllCategoriesQuery>;
-export type GetAllCategoriesLazyQueryHookResult = ReturnType<typeof useGetAllCategoriesLazyQuery>;
-export type GetAllCategoriesQueryResult = Apollo.QueryResult<GetAllCategoriesQuery, GetAllCategoriesQueryVariables>;
+export type GetProductsCategoriesQueryHookResult = ReturnType<typeof useGetProductsCategoriesQuery>;
+export type GetProductsCategoriesLazyQueryHookResult = ReturnType<typeof useGetProductsCategoriesLazyQuery>;
+export type GetProductsCategoriesQueryResult = Apollo.QueryResult<GetProductsCategoriesQuery, GetProductsCategoriesQueryVariables>;
 export const GetTrendingProductDocument = gql`
     query GetTrendingProduct {
-  category(where: {slug: "03/trending"}) {
+  category(where: {slug: "trending"}) {
     title
     slug
     products {

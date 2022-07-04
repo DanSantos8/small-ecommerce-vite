@@ -1,0 +1,12 @@
+query getProductsCategories {
+  categories(where: { NOT: { slug: "trending" } }) {
+    categoryId
+    title
+    products {
+      productId
+      title
+      price
+      image
+    }
+  }
+}
