@@ -4296,7 +4296,7 @@ export enum _SystemDateTimeFieldVariation {
 export type GetProductsCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProductsCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', categoryId: string, title: string, products: Array<{ __typename?: 'Product', productId: number, title: string, price: number, image: string }> }> };
+export type GetProductsCategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', categoryId: string, title: string, products: Array<{ __typename?: 'Product', productId: number, title: string, price: number, image: string, slug: string }> }> };
 
 export type GetTrendingProductQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4314,6 +4314,7 @@ export const GetProductsCategoriesDocument = gql`
       title
       price
       image
+      slug
     }
   }
 }

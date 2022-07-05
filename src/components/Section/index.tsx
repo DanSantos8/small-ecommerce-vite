@@ -1,19 +1,22 @@
 import { useGetProductsCategoriesQuery } from "../../graphql/generated"
 import { Text } from "../Text"
-import React, { FunctionComponent } from "react"
 import { normalizeCurrency } from "../../utils/functions"
 import { BtnAddProductCart } from "../Button"
+import { IChildren } from "../../utils/types"
+import { Link } from "react-router-dom"
 
 interface IProductCardProps {
   title: string
   price: number
   productId: number
   image: string
+  slug: string
 }
 
 function ProductCard(props: IProductCardProps) {
   return (
-    <div
+    <Link
+      to={`/product-details/${props.slug}/${props.productId}`}
       className="flex flex-col h-[280px] bg-cover bg-right-top relative z-10"
       style={{
         backgroundImage: `url('${props.image}')`,
@@ -25,18 +28,20 @@ function ProductCard(props: IProductCardProps) {
         <Text label={normalizeCurrency(props.price)} classes="text-white" />
         <BtnAddProductCart productId={props.productId} />
       </div>
-    </div>
+    </Link>
   )
 }
 
-function ProductsGrid({ children }: any) {
+function ProductsGrid(props: IChildren) {
+  const { children } = props
   return <div className="grid grid-cols-2 gap-5">{children}</div>
 }
 
-export function Section(props: any) {
+export function Section(props: IChildren) {
+  const { children } = props
   return (
     <section className="min-h-[200px] flex flex-1 flex-col my-6 ">
-      {props.children}
+      {children}
     </section>
   )
 }
