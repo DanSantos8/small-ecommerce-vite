@@ -4,31 +4,18 @@ interface IButtonProps {
   label: string
   onClick: () => void
   classes?: string
+  disabled?: boolean
 }
 
 export function Button(props: IButtonProps) {
-  const { label, classes = [], onClick } = props
+  const { label, classes = [], onClick, disabled } = props
   return (
     <button
       className={classNames("rounded-lg bg-white", classes)}
       onClick={() => onClick()}
+      disabled={disabled}
     >
       {label}
     </button>
-  )
-}
-
-export function BtnAddProductCart(props: {
-  productId: number
-  classes?: string
-}) {
-  const { productId, classes = "" } = props
-
-  return (
-    <Button
-      label="Add Cart"
-      classes={`bg-white text-base font-semibold p-1 w-36` + classes}
-      onClick={() => console.log("Botão clicado", productId)}
-    />
   )
 }

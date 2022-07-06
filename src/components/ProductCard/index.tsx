@@ -1,5 +1,5 @@
 import { normalizeCurrency } from "../../utils/functions"
-import { BtnAddProductCart } from "../Button"
+import { BtnAddProductCart } from "../BtnAddProductCart"
 import { Text } from "../Text"
 import { Link } from "react-router-dom"
 
@@ -12,20 +12,23 @@ interface IProductCardProps {
 }
 
 export function ProductCard(props: IProductCardProps) {
+  const { image, price, productId, slug, title } = props
   return (
-    <Link
-      to={`/product-details/${props.slug}/${props.productId}`}
-      className="flex flex-col h-[280px] bg-cover bg-right-top relative z-10"
+    <div
+      className="flex flex-col justify-center items-center h-[280px] bg-cover bg-right-top relative z-10"
       style={{
-        backgroundImage: `url('${props.image}')`,
+        backgroundImage: `url('${image}')`,
       }}
     >
       <div className="absolute w-full bg-black h-full opacity-60" />
-      <div className="relative flex flex-1 flex-col items-center justify-center p-4 gap-1">
-        <Text label={props.title} classes="text-white" />
-        <Text label={normalizeCurrency(props.price)} classes="text-white" />
-        <BtnAddProductCart productId={props.productId} />
-      </div>
-    </Link>
+      <Link
+        to={`/product-details/${slug}/${productId}`}
+        className="relative flex flex-col items-center justify-center p-4 gap-1 z-10"
+      >
+        <Text label={title} classes="text-white" />
+        <Text label={normalizeCurrency(price)} classes="text-white" />
+      </Link>
+      <BtnAddProductCart product={props} />
+    </div>
   )
 }

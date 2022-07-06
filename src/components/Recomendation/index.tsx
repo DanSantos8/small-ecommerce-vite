@@ -2,7 +2,7 @@ import classNames from "classnames"
 import { useGetTrendingProductQuery } from "../../graphql/generated"
 import { normalizeCurrency } from "../../utils/functions"
 import { Text } from "../Text"
-import { BtnAddProductCart } from "../Button"
+import { BtnAddProductCart } from "../BtnAddProductCart"
 export function Recomendation() {
   const { data } = useGetTrendingProductQuery()
 
@@ -25,7 +25,7 @@ export function Recomendation() {
             label={normalizeCurrency(product.price)}
             classes="text-2xl text-white"
           />
-          <BtnAddProductCart productId={product.productId} />
+          <BtnAddProductCart product={product} />
         </div>
       ))}
     </>

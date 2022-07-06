@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useGetProductDetailQuery } from "../../graphql/generated"
 import { normalizeCurrency } from "../../utils/functions"
-import { BtnAddProductCart } from "../Button"
+import { BtnAddProductCart } from "../BtnAddProductCart"
 import { Text } from "../Text"
 
 export function ProductDetails() {
@@ -12,7 +12,7 @@ export function ProductDetails() {
     },
   })
 
-  if (!data || !data.product?.productId) return <span>Loading...</span>
+  if (!data?.product) return <span>Loading...</span>
 
   return (
     <section
@@ -37,7 +37,7 @@ export function ProductDetails() {
           />
         </div>
         <BtnAddProductCart
-          productId={data.product?.productId}
+          product={data?.product}
           classes="w-full bg-black p-3 text-white"
         />
       </div>
