@@ -4293,6 +4293,13 @@ export enum _SystemDateTimeFieldVariation {
   Localization = 'localization'
 }
 
+export type GetProductDetailQueryVariables = Exact<{
+  productId?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetProductDetailQuery = { __typename?: 'Query', product?: { __typename?: 'Product', title: string, slug: string, image: string, productId: number, price: number, description: string } | null };
+
 export type GetProductsCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4304,6 +4311,46 @@ export type GetTrendingProductQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetTrendingProductQuery = { __typename?: 'Query', category?: { __typename?: 'Category', title: string, slug: string, products: Array<{ __typename?: 'Product', title: string, price: number, image: string, productId: number, slug: string }> } | null };
 
 
+export const GetProductDetailDocument = gql`
+    query GetProductDetail($productId: Int) {
+  product(where: {productId: $productId}) {
+    title
+    slug
+    image
+    productId
+    price
+    description
+  }
+}
+    `;
+
+/**
+ * __useGetProductDetailQuery__
+ *
+ * To run a query within a React component, call `useGetProductDetailQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetProductDetailQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetProductDetailQuery({
+ *   variables: {
+ *      productId: // value for 'productId'
+ *   },
+ * });
+ */
+export function useGetProductDetailQuery(baseOptions?: Apollo.QueryHookOptions<GetProductDetailQuery, GetProductDetailQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetProductDetailQuery, GetProductDetailQueryVariables>(GetProductDetailDocument, options);
+      }
+export function useGetProductDetailLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetProductDetailQuery, GetProductDetailQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetProductDetailQuery, GetProductDetailQueryVariables>(GetProductDetailDocument, options);
+        }
+export type GetProductDetailQueryHookResult = ReturnType<typeof useGetProductDetailQuery>;
+export type GetProductDetailLazyQueryHookResult = ReturnType<typeof useGetProductDetailLazyQuery>;
+export type GetProductDetailQueryResult = Apollo.QueryResult<GetProductDetailQuery, GetProductDetailQueryVariables>;
 export const GetProductsCategoriesDocument = gql`
     query getProductsCategories {
   categories(where: {NOT: {slug: "trending"}}) {

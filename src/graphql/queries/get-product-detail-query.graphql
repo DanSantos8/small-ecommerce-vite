@@ -1,0 +1,10 @@
+query GetProductDetail($productId: Int) {
+  product(where: { productId: $productId }) {
+    title
+    slug
+    image
+    productId
+    price
+    description
+  }
+}

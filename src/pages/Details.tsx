@@ -1,12 +1,10 @@
-import { useParams } from "react-router-dom"
+import { ProductDetails } from "../components/ProductDetails"
 import { Template } from "../components/Template"
 
 export default function Details() {
-  let { slug } = useParams()
-
   return (
     <Template>
-      <span>{slug}</span>
+      <ProductDetails />
     </Template>
   )
 }
