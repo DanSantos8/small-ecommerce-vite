@@ -1,3 +1,9 @@
+import { Template } from "../components/Template"
+
 export default function Cart() {
-  return <h1>Carrinho</h1>
+  return (
+    <Template>
+      <span>carrinho</span>
+    </Template>
+  )
 }
