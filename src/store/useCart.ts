@@ -1,19 +1,29 @@
 import create from "zustand"
 import { IProduct } from "../utils/types"
+import { combine, devtools } from "zustand/middleware"
 
-export const useCart = create<{
-  products: IProduct[]
-  insertProduct: (product: IProduct) => void
-}>((set) => ({
+const initialState: { products: IProduct[] } = {
   products: [],
-  insertProduct: (product: IProduct) =>
-    set((state) => {
-      const hasProduct = state.products.some(
-        (item) => item.productId === product.productId
-      )
+}
 
-      if (!hasProduct) return { products: [...state.products, { ...product }] }
+interface ICart {
+  products: IProduct[]
+  actions: { insertProduct: (product: IProduct) => void }
+}
 
-      return { products: [...state.products] }
-    }),
-}))
+export const useCart = create<ICart>()(
+  devtools(
+    combine({ ...initialState }, (set) => ({
+      actions: {
+        insertProduct: (product: IProduct) =>
+          set((state) => {
+            const hasItem = state.products.includes(product)
+
+            if (!hasItem) state.products.push(product)
+
+            return { products: state.products }
+          }),
+      },
+    }))
+  )
+)

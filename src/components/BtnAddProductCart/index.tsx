@@ -8,11 +8,9 @@ export function BtnAddProductCart(props: {
   classes?: string
 }) {
   const { product, classes = "" } = props
-  const { products, insertProduct } = useCart()
+  const { products, actions } = useCart()
 
   const isAdded = products.some((item) => item.productId === product.productId)
-
-  console.log(isAdded)
 
   return (
     <Button
@@ -21,7 +19,7 @@ export function BtnAddProductCart(props: {
         `bg-white text-base font-semibold p-1 w-36 relative z-10 ` + classes
       }
       disabled={isAdded}
-      onClick={() => insertProduct(product)}
+      onClick={() => actions.insertProduct(product)}
     />
   )
 }
