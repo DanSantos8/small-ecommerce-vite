@@ -3,7 +3,7 @@ import { Template } from "../components/Template"
 export default function Cart() {
   return (
     <Template>
-      <span>carrinho</span>
+      <div className="flex flex-1 flex-col bg-white rounded-xl"></div>
     </Template>
   )
 }
