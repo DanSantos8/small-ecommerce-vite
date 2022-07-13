@@ -2,12 +2,17 @@ import create from "zustand"
 import { IProduct } from "../utils/types"
 import { combine, devtools } from "zustand/middleware"
 
-const initialState: { products: IProduct[] } = {
-  products: [],
+interface IInitialState {
+  products: IProduct[]
+  totalPrice: number
 }
 
-interface ICart {
-  products: IProduct[]
+const initialState: IInitialState = {
+  products: [],
+  totalPrice: 0,
+}
+
+interface ICart extends IInitialState {
   actions: { insertProduct: (product: IProduct) => void }
 }
 
@@ -19,9 +24,15 @@ export const useCart = create<ICart>()(
           set((state) => {
             const hasItem = state.products.includes(product)
 
-            if (!hasItem) state.products.push(product)
+            if (!hasItem) {
+              return {
+                ...state,
+                products: [...state.products, product],
+                totalPrice: state.totalPrice + product.price,
+              }
+            }
 
-            return { products: state.products }
+            return { ...state }
           }),
       },
     }))

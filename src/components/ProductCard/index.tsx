@@ -15,7 +15,7 @@ export function ProductCard(props: IProductCardProps) {
   const { image, price, productId, slug, title } = props
   return (
     <div
-      className="flex flex-col justify-center items-center h-[280px] bg-cover bg-right-top relative z-10"
+      className="flex flex-col justify-center items-center overflow-hidden h-[280px] bg-cover bg-right-top relative z-10"
       style={{
         backgroundImage: `url('${image}')`,
       }}
